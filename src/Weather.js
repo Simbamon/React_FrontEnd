@@ -5,7 +5,8 @@ export default class Weather extends Component {
     constructor() {
         super()
         this.state = {
-            weather: "Not yet gotten"
+            weather: "Not yet gotten",
+            name: "Not yet gotten"
         }
     }
     handleButtonClick = () => {
@@ -16,11 +17,22 @@ export default class Weather extends Component {
         })
     }
 
+    handleButtonClick2 = () => {
+        axios.get('/getname').then(response => {
+            this.setState({
+                name: response.data
+            })
+        })
+    }
+
     render() {
         return (
             <div>
                 <button onClick={this.handleButtonClick}>Get weather in Minneapolis</button>
+                <br />
+                <button onClick={this.handleButtonClick2}>Get name</button>
                 <h1>The weather in Minneapolis is: {this.state.weather}</h1>
+                <h1>My name is: {this.state.name}</h1>
             </div>
         )
     }
