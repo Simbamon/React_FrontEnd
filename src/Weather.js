@@ -9,7 +9,7 @@ export default class Weather extends Component {
             name: "Not yet gotten",
             lat: "",
             long: "",
-            exampler: "Initial: 2",
+            exampler: "",
         }
     }
     handleButtonClick = () => {
@@ -43,8 +43,16 @@ export default class Weather extends Component {
         }
     }
 
+    getData = async () => {
+        const response = await fetch('/api')
+        const data = await response.json()
+        console.log("Data")
+        console.log(data)
+    }
+    
+
     fetchexample = async () => {
-        const data = { username: 2 }
+        const data = { username: "Nice", password: "cool"}
         const options = {
             method: 'POST',
             headers: {
@@ -56,7 +64,7 @@ export default class Weather extends Component {
         const json = await response.json()
         console.log(json)
         this.setState({
-            exampler: json.data
+            exampler: json.username
         })
         console.log(this.state.exampler)
     }
@@ -70,12 +78,14 @@ export default class Weather extends Component {
                 <br />
                 <button onClick={this.geolocation}>Get geo</button>
                 <br />
+                <button onClick={this.getData}>Get Data</button>
+                <br />
                 <button onClick={this.fetchexample}>Fetch</button>
                 <h1>The weather in Minneapolis is: {this.state.weather}</h1>
                 <h1>My name is: {this.state.name}</h1>
                 <h1>Lat: {this.state.lat}</h1>
                 <h1>Long: {this.state.long}</h1>
-                <h1>Fetch (+3): {this.state.exampler}</h1>
+                <h1>Fetch: {this.state.exampler}</h1>
             </div>
         )
     }
