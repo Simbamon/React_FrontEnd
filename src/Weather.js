@@ -10,6 +10,8 @@ export default class Weather extends Component {
             lat: "",
             long: "",
             exampler: "",
+            imageSrc: '',
+            imageAlt: ''
         }
     }
     handleButtonClick = () => {
@@ -69,6 +71,15 @@ export default class Weather extends Component {
         console.log(this.state.exampler)
     }
 
+    handleChange = (e) => {
+        const countryCode = e.target.value
+        console.log(countryCode)
+        this.setState({
+            imageSrc:'https://flagpedia.net/data/flags/h80/'+countryCode+'.webp',
+            imageAlt:countryCode
+        })
+    }
+
     render() {
         return (
             <div>
@@ -86,7 +97,21 @@ export default class Weather extends Component {
                 <h1>Lat: {this.state.lat}</h1>
                 <h1>Long: {this.state.long}</h1>
                 <h1>Fetch: {this.state.exampler}</h1>
+                <div>  
+                    <select id="country" onChange={this.handleChange}>  
+                    <option value="in">India</option>  
+                    <option value="us">US</option>  
+                    <option value="gb">UK</option>  
+                    </select>  
+
+
+                    <div class="image">  
+                        <img src={this.state.imageSrc} id="img-change" alt={this.state.imageAlt}/>  
+                    </div>  
+                </div>  
             </div>
+            
+            
         )
     }
 }
